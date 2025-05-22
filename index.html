@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ruleta del Amor</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="arrow">❤</div>
+    <div class="wheel" id="wheel">
+      <div class="segment" style="--i:0;"><p>Beso</p></div>
+      <div class="segment" style="--i:1;"><p>Abrazo</p></div>
+      <div class="segment" style="--i:2;"><p>Película</p></div>
+      <div class="segment" style="--i:3;"><p>Cena</p></div>
+      <div class="segment" style="--i:4;"><p>Paseo</p></div>
+      <div class="segment" style="--i:5;"><p>Baile</p></div>
+      <div class="segment" style="--i:6;"><p>otro7</p></div>
+      <div class="segment" style="--i:7;"><p>otro8</p></div>
+      <div class="segment" style="--i:8;"><p>otro9</p></div>
+    </div>
+    
+    <button onclick="spin()">Girar</button>
+    <div class="result" id="result">Resultado: ...</div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
