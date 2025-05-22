@@ -8,23 +8,24 @@
 </head>
 <body>
   <div class="container">
-    <div class="arrow">❤</div>
+    <div class="arrow" style="color: rgb(255, 93, 93);">❤</div>
     <div class="wheel" id="wheel">
-      <div class="segment" style="--i:0;"><p>Beso</p></div>
-      <div class="segment" style="--i:1;"><p>Abrazo</p></div>
-      <div class="segment" style="--i:2;"><p>Película</p></div>
-      <div class="segment" style="--i:3;"><p>Cena</p></div>
-      <div class="segment" style="--i:4;"><p>Paseo</p></div>
-      <div class="segment" style="--i:5;"><p>Baile</p></div>
-      <div class="segment" style="--i:6;"><p>otro7</p></div>
-      <div class="segment" style="--i:7;"><p>otro8</p></div>
-      <div class="segment" style="--i:8;"><p>otro9</p></div>
+      <!-- Segmentos serán insertados dinámicamente -->
     </div>
     
-    
-    <button onclick="spin()">Girar</button>
+    <button onclick="spin()">👉  GIRAR  👈</button>
     <div class="result" id="result">Resultado: ...</div>
+    <form id="optionsForm">
+  <h3>Editar opciones:</h3>
+  <div id="inputsContainer" class="inputs"></div>
+  <button class="actualizar" type="submit">Actualizar ruleta</button>
+</form>
+<audio id="tickSound" src="sound/rule.mp3" preload="auto"></audio>
+<audio id="tickSound2" src="sound/confeti.mp3" preload="auto"></audio>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
   <script src="script.js"></script>
+  
 </body>
 </html>

@@ -1,10 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+  font-family: "Poppins", sans-serif;
+  color: rgb(32, 32, 32);
+}
 body {
   font-family: sans-serif;
-  background: #ffe5ec;
+  background: #fcfffe;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   flex-direction: column;
   margin: 0;
 }
@@ -18,18 +22,18 @@ body {
   width: 300px;
   height: 300px;
   border-radius: 50%;
-  border: 10px solid #ff6f91;
+  border: 3px solid hsl(0, 100%, 82%);
   position: relative;
-  transition: all 10s cubic-bezier(0, 0, 0.10, 1);
   overflow: hidden;
   z-index: 10 ;
+  background-color: rgba(255, 139, 139, 0.37);
 }
 
 .segment {
   position: absolute;
   width: 50%;
   height: 50%;
-  background: #ffc2d1;
+  background-color: #ffffff;
   transform-origin: 100% 100%;
   clip-path: polygon(18% 0, 100% 0, 100% 100%);
   display: flex;
@@ -41,6 +45,16 @@ body {
   
   
 }
+.wheel>.segment:nth-child(1),.segment:nth-child(4),.segment:nth-child(7) {
+  background-color: #ffeff3;
+}
+.wheel>.segment:nth-child(2),.segment:nth-child(5),.segment:nth-child(8) {
+  background-color: #fffbf1;
+}
+.wheel>.segment:nth-child(3),.segment:nth-child(6),.segment:nth-child(9) {
+  background-color: #effff8;
+}
+
 .segment p{
 transform: rotate(-20deg) translateY(-1.9rem) translateX(2.8rem);
 }
@@ -54,8 +68,8 @@ transform: rotate(-20deg) translateY(-1.9rem) translateX(2.8rem);
 }
 
 button {
-  padding: 10px 20px;
-  background: #ff6f91;
+  padding: 10px 10px;
+  background: rgb(255, 93, 93);
   color: white;
   border: none;
   font-size: 1rem;
@@ -67,5 +81,28 @@ button {
 .result {
   margin-top: 20px;
   font-size: 1.5rem;
+  font-weight: 700;
+  border-bottom: 1px solid rgb(255, 93, 93);;
+  padding-bottom: 0.1rem;
+  margin-bottom: 2rem;
+}
+
+.inputs{
+  display: flex;
+  flex-direction: column;
+  gap:  20px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   
+}
+
+.inputs>input{
+  text-align: center;
+  all: unset;
+  border-radius: 5px;
+  border-bottom: 1px solid rgb(255, 93, 93);; 
+}
+.actualizar{
+  margin-bottom: 4rem;
 }
