@@ -3,7 +3,7 @@ const result = document.getElementById("result");
 const inputsContainer = document.getElementById("inputsContainer");
 const form = document.getElementById("optionsForm");
 
-let options = ["Beso", "Abrazo", "Película", "Cena", "Paseo", "Baile", "otro7", "otro8", "otro9"];
+let options = ["Burguer🍔", "Suchi🍣", "Pizza🍕", "Perro🌭", "Pollo🍗", "Ramen🍜", "Burrito🌯", "Creps🧇", "Coctel🍸"];
 let spinning = false;
 let currentRotation = 0;
 
@@ -42,7 +42,7 @@ function spin() {
 
   const extraRotation = Math.floor(3600 + Math.random() * 720);
   const finalRotation = currentRotation + extraRotation;
-  const duration = 5000; // 10 segundos
+  const duration = 15000; // 10 segundos
   const segmentAngle = 360 / options.length;
 
   let start = null;
@@ -54,7 +54,7 @@ function spin() {
     const progress = Math.min(elapsed / duration, 1);
 
     // Ease-out cubic
-    const easedProgress = 1 - Math.pow(1 - progress, 3);
+   const easedProgress = 1 - Math.pow(1 - progress, 2.5);
     const currentAngle = currentRotation + (finalRotation - currentRotation) * easedProgress;
     wheel.style.transform = `rotate(${currentAngle}deg)`;
 
