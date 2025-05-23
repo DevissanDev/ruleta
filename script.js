@@ -8,7 +8,9 @@ let spinning = false;
 let currentRotation = 0;
 
 let optimizar = false;
-let numeroClaseOptimizada = 2
+let numeroClaseOptimizada = 2;
+let lastSoundTime = 0;
+const minSoundInterval = 80;
 
 
 function actualizarPage() {
@@ -91,11 +93,12 @@ function spin() {
     // Reproducir tick si cambia de segmento
     const degrees = currentAngle % 360;
     const tickIndex = Math.floor(degrees / segmentAngle);
-    if (tickIndex !== lastTick) {
-      tickSound.currentTime = 0;
-      tickSound.play();
-      lastTick = tickIndex;
-    }
+    if (tickIndex !== lastTick && elapsed - lastSoundTime > minSoundInterval) {
+  tickSound.currentTime = 0;
+  tickSound.play();
+  lastSoundTime = elapsed;
+  lastTick = tickIndex;
+}
 
     if (progress < 1) {
       requestAnimationFrame(animate);
