@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <button onclick="optimiza()" type="submit" class="optimizar">Optimizar</button>
+  <button onclick="actualizarPage()" type="submit" class="recargar">Recargar</button>
   <div class="container">
     <div class="arrow" style="color: rgb(255, 93, 93);">❤</div>
     <div class="wheel" id="wheel">
@@ -25,6 +27,25 @@
   <div id="inputsContainer" class="inputs"></div>
   <button class="actualizar" type="submit">Actualizar ruleta</button>
 </form>
+<h3>Segundos:</h3>
+<input
+  class="segundos"
+  type="number"
+  min="5"
+  max="999"
+  onblur="
+    if (this.value.length > 3) {
+      this.value = this.value.slice(0, 3);
+    }
+    if (this.value !== '') {
+      const num = parseInt(this.value);
+      if (num < 5) this.value = 5;
+      if (num > 999) this.value = 999;
+    }
+  "
+  id="miInput"
+  placeholder="#"
+/>
 <audio id="tickSound" src="sound/rule.mp3" preload="auto"></audio>
 <audio id="tickSound2" src="sound/confeti.mp3" preload="auto"></audio>
   </div>

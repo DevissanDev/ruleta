@@ -7,6 +7,36 @@ let options = ["Burguer🍔", "Suchi🍣", "Pizza🍕", "Perro🌭", "Pollo🍗"
 let spinning = false;
 let currentRotation = 0;
 
+let optimizar = false;
+let numeroClaseOptimizada = 2
+
+
+function actualizarPage() {
+  window.location.href = window.location.href;
+}
+
+function optimiza(){
+  if(optimizar == false){
+    optimizar = true;
+    numeroClaseOptimizada = 1;
+  } else{
+    optimizar = false;
+    numeroClaseOptimizada = 2;
+  }
+
+  renderWheel(); // 🔁 ¡Vuelve a renderizar la ruleta!
+}
+
+const input = document.getElementById('miInput');
+  let valorGuardado = '20';
+
+  input.addEventListener('blur', () => {
+    valorGuardado = input.value;
+    console.log('Guardado:', valorGuardado);
+  });
+
+
+
 // Función para crear los inputs del formulario
 function renderFormInputs() {
   inputsContainer.innerHTML = ""; // limpiar
@@ -25,7 +55,7 @@ function renderWheel() {
   wheel.innerHTML = "";
   options.forEach((option, index) => {
     const segment = document.createElement("div");
-    segment.className = "segment";
+    segment.className = `segment${numeroClaseOptimizada}`;
     segment.style.setProperty("--i", index);
     segment.innerHTML = `<p>${option}</p>`;
     wheel.appendChild(segment);
@@ -42,7 +72,7 @@ function spin() {
 
   const extraRotation = Math.floor(3600 + Math.random() * 720);
   const finalRotation = currentRotation + extraRotation;
-  const duration = 15000; // 10 segundos
+  const duration = `${valorGuardado}000`; // 10 segundos
   const segmentAngle = 360 / options.length;
 
   let start = null;
@@ -105,8 +135,9 @@ form.addEventListener("submit", (e) => {
     if (value !== "") newOptions.push(value);
   });
 
-  if (newOptions.length < 2) {
-    alert("Debe haber al menos 2 opciones.");
+  // Validar que todos estén llenos
+  if (newOptions.length !== inputs.length) {
+    alert("Todos los campos deben estar llenos.");
     return;
   }
 
