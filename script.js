@@ -2,46 +2,38 @@ const wheel = document.getElementById("wheel");
 const result = document.getElementById("result");
 const inputsContainer = document.getElementById("inputsContainer");
 const form = document.getElementById("optionsForm");
+const input = document.getElementById("miInput");
+const tickSound = document.getElementById("tickSound");
+const tickSound2 = document.getElementById("tickSound2");
 
 let options = ["Burguer🍔", "Suchi🍣", "Pizza🍕", "Perro🌭", "Pollo🍗", "Ramen🍜", "Burrito🌯", "Creps🧇", "Coctel🍸"];
 let spinning = false;
 let currentRotation = 0;
-
 let optimizar = false;
 let numeroClaseOptimizada = 2;
-let lastSoundTime = 0;
-const minSoundInterval = 80;
+let valorGuardado = '20';
 
-
+// Recargar la página
 function actualizarPage() {
-  window.location.href = window.location.href;
+  location.reload();
 }
 
-function optimiza(){
-  if(optimizar == false){
-    optimizar = true;
-    numeroClaseOptimizada = 1;
-  } else{
-    optimizar = false;
-    numeroClaseOptimizada = 2;
-  }
-
-  renderWheel(); // 🔁 ¡Vuelve a renderizar la ruleta!
+// Alternar optimización
+function optimiza() {
+  optimizar = !optimizar;
+  numeroClaseOptimizada = optimizar ? 1 : 2;
+  renderWheel();
 }
 
-const input = document.getElementById('miInput');
-  let valorGuardado = '20';
+// Guardar valor del input
+input.addEventListener('blur', () => {
+  valorGuardado = input.value;
+  console.log('Guardado:', valorGuardado);
+});
 
-  input.addEventListener('blur', () => {
-    valorGuardado = input.value;
-    console.log('Guardado:', valorGuardado);
-  });
-
-
-
-// Función para crear los inputs del formulario
+// Crear inputs del formulario
 function renderFormInputs() {
-  inputsContainer.innerHTML = ""; // limpiar
+  inputsContainer.innerHTML = "";
   options.forEach((option, index) => {
     const input = document.createElement("input");
     input.type = "text";
@@ -52,7 +44,7 @@ function renderFormInputs() {
   });
 }
 
-// Función para renderizar la ruleta
+// Dibujar la ruleta
 function renderWheel() {
   wheel.innerHTML = "";
   options.forEach((option, index) => {
@@ -64,17 +56,25 @@ function renderWheel() {
   });
 }
 
+// Mostrar confeti
+function lanzarConfeti() {
+  for (let i = 0; i < 10; i++) {
+    confetti({
+      particleCount: 250,
+      spread: 360,
+      origin: { x: Math.random(), y: Math.random() }
+    });
+  }
+}
+
 // Girar la ruleta
 function spin() {
   if (spinning) return;
   spinning = true;
 
-  const tickSound = document.getElementById("tickSound");
-  const tickSound2 = document.getElementById("tickSound2");
-
   const extraRotation = Math.floor(3600 + Math.random() * 720);
   const finalRotation = currentRotation + extraRotation;
-  const duration = `${valorGuardado}000`; // 10 segundos
+  const duration = parseInt(valorGuardado) * 1000;
   const segmentAngle = 360 / options.length;
 
   let start = null;
@@ -85,20 +85,17 @@ function spin() {
     const elapsed = timestamp - start;
     const progress = Math.min(elapsed / duration, 1);
 
-    // Ease-out cubic
-   const easedProgress = 1 - Math.pow(1 - progress, 2.5);
+    const easedProgress = 1 - Math.pow(1 - progress, 2.5);
     const currentAngle = currentRotation + (finalRotation - currentRotation) * easedProgress;
     wheel.style.transform = `rotate(${currentAngle}deg)`;
 
-    // Reproducir tick si cambia de segmento
     const degrees = currentAngle % 360;
     const tickIndex = Math.floor(degrees / segmentAngle);
-    if (tickIndex !== lastTick && elapsed - lastSoundTime > minSoundInterval) {
-  tickSound.currentTime = 0;
-  tickSound.play();
-  lastSoundTime = elapsed;
-  lastTick = tickIndex;
-}
+    if (tickIndex !== lastTick) {
+      tickSound.currentTime = 0;
+      tickSound.play();
+      lastTick = tickIndex;
+    }
 
     if (progress < 1) {
       requestAnimationFrame(animate);
@@ -110,36 +107,20 @@ function spin() {
       result.textContent = "Resultado: " + options[realIndex];
       spinning = false;
       tickSound2.play();
-       // 🎉 Llamar confeti al finalizar
-  for (let i = 0; i < 10; i++) {
-  confetti({
-    particleCount: 250,
-    spread: 360,
-    origin: {
-      x: Math.random(),
-      y: Math.random(),
-    }
-  });
-}
+      lanzarConfeti();
     }
   }
 
   requestAnimationFrame(animate);
 }
 
-
-// Al enviar el formulario
+// Manejo del formulario
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  const newOptions = [];
-  const inputs = inputsContainer.querySelectorAll("input");
-  inputs.forEach((input) => {
-    const value = input.value.trim();
-    if (value !== "") newOptions.push(value);
-  });
+  const newOptions = Array.from(inputsContainer.querySelectorAll("input"))
+    .map(input => input.value.trim());
 
-  // Validar que todos estén llenos
-  if (newOptions.length !== inputs.length) {
+  if (newOptions.includes("")) {
     alert("Todos los campos deben estar llenos.");
     return;
   }

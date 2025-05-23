@@ -255,6 +255,7 @@ overflow: hidden;
   z-index: -1;            /* Se coloca detrás del contenido */
 }
 
+
 .wheel>.segment1:nth-child(1),.segment1:nth-child(4),.segment1:nth-child(7) {
   background-color: #ffeff3;
 }
